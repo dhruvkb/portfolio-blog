@@ -1,0 +1,29 @@
+language: python
+
+os: linux
+dist: bionic
+
+python:
+  - '3.7'
+
+install:
+  - pip install pipenv
+  - pipenv install --deploy
+
+script: echo "OK!"
+
+after_success: pipenv run scripts/metadata_gen.py
+
+deploy:
+  token: $GITHUB_TOKEN
+
+  provider: pages
+  strategy: git
+
+  skip_cleanup: true
+  local_dir: dist
+  repo: dhruvkb/portfolio-blog
+  target_branch: metadata
+  committer_from_gh: true
+  on:
+    branch: master
