@@ -293,8 +293,8 @@ That's all there is to it. Now you know the story of why, and how, my new portfo
 This post is part one of my series covering my [new portfolio website](https://dhruvkb.github.io/).
 
 1. Easy on the eyes
-2. [Push and it's live](https://dhruvkb.github.io/#/blog/post/push_and_its_live)
-3. [Blogging on a static site](https://dhruvkb.github.io/#/blog/post/blogging_on_a_static_site)
+2. [Blogging on a static site](https://dhruvkb.github.io/#/blog/post/blogging_on_a_static_site)
+3. [Push and it's live](https://dhruvkb.github.io/#/blog/post/push_and_its_live)
 4. [Back to the future](https://dhruvkb.github.io/#/blog/post/back_to_the_future)
 
 For the tech-savvy, the [open-source, well-documented code](https://github.com/dhruvkb/portfolio) powering my portfolio is available on GitHub. I'm sure that you can either learn something from it or teach me something about it so please reach out!
