@@ -34,13 +34,13 @@ Do note that the code given here highlights the most important and interesting p
 
 Solarized is a colour scheme (or theme or palette, whatever you like to call it). That's all it is. It is merely a collection of 8 monotonal colours and 8 accent colours as is customary for terminal-based colour schemes. But there is a something special about these colours that makes saying "These colours work harmoniously together" a massive understatement.
 
-### 1.1 Higher is not always better
+### 1.1. Higher is not always better
 
 White on black and conversely black on white are both too high in terms of the brightness contrast. Increasing the contrast increases readability but eventually it hits a maximum in reading comfort, after which we enter the territory of negative returns. The optimum reading contrast is much less than that the ultimate constrast offered by black/white.
 
 Solarized hits the mark quite perfectly and is not tiresome even when looking at a screen for long durations of time. I use it on my text editor, IDE, browser and terminal. I'm practically looking at Solarized all day, and all night too.
 
-### 1.2 Backed by mathematics
+### 1.2. Backed by mathematics
 
 The colours have some unique properties derived from solid principles of colour mathematics. Schoonover designed the 8 monotones with precise CIELAB lightness (L*) and the hues keeping the colour wheel relationships in mind.
 
@@ -56,30 +56,30 @@ The colours get brighter from Base 03 to Base 00 and then further from Base 0 to
 
 There is a difference of about 45 L* between any of the content tones and the corresponding background tones.
 
-### 1.3 Night and day
+### 1.3. Night and day
 
-The eight monotones available in Solarized can be separated into two groups of six colours (and we add one colour from our end) satisfying the following needs:
+We pick four content colors and three background colors from Solarized. These are:
 - **Content**
+  - **Secondary**: used when some text needs to dodge attention
   - **Normal**: used as the default foreground colour
   - **Highlighted**: used when some text needs to draw attention
-  - **Secondary**: used when some text needs to dodge attention
+  - **Prominent**: used for the most important content on the page
 - **Background**
   - **Normal**: used as the default background colour
   - **Highlighted**: used behind highlighted content
-  - **Opposite**: used in prominently visible components
   - **Selected**: used as overlay for user-selected content
 
-| Usecase                  | Dark      | Light     |
-|--------------------------|-----------|-----------|
-| Content - Normal         | Base 0    | Base 00   |
-| Content - Highlighted    | Base 1    | Base 01   |
-| Content - Secondary      | Base 01   | Base 1    |
-| Background - Normal      | Base 03   | Base 3    |
-| Background - Highlighted | Base 02   | Base 2    |
-| Background - Opposite    | Base 3    | Base 03   |
-| Background - Selected    | 0.1 White | 0.1 Black |
+| Usecase                     | Dark        | Light       |
+|-----------------------------|-------------|-------------|
+| Content - Secondary         | Base 01     | Base 1      |
+| Content _(default)_         | Base 0      | Base 00     |
+| Content - Highlighted       | Base 1      | Base 01     |
+| Content - Prominent         | Base 2      | Base 02     |
+| Background _(default)_      | Base 03     | Base 3      |
+| Background - Highlighted    | Base 02     | Base 2      |
+| Background - Selected       | 0.1-Base 2  | 0.1-Base 02 |
 
-0.1 Black is `rgba(255, 255, 255, 0.1)` and 0.1 White is `rgba(0, 0, 0, 0.1)`.
+0.1-Base 2 is `color.adjust(colors.$base-2, $alpha: -0.9)` and 0.1-Base 02 is `color.adjust(colors.$base-02, $alpha: -0.9)`.
 
 ## 2. Get your hands dirty
 
@@ -87,72 +87,96 @@ My old portfolio only shipped with the dark version of Solarized. But this time 
 
 Adding this theme switcher would have been way harder before the introduction of CSS custom properties. Now that most popular browsers support CSS custom properties, our work becomes much easier.
 
-We can just define all the colors as Sass variables to enable using them across the site. I like to put all my constants inside separate files under a `tokens/` folder. That way changing them is easy because there's a central location from where all components are deriving their properties.
+We can just define all the colors as Sass variables to enable using them across the site. I like to put all my constants inside separate files under a `tokens/` folder. That way changing them is easy because there's a central location from where all compone nts are deriving their properties.
 
 ```scss
-/* styles/tokens/colors.scss */
-// Background tones
+/* styles/tokens/_colors.scss */
+// Greyscale tones
 
-$color-background-base03: #002b36; // L* Lightness 15
-$color-background-base02: #073642; // L* Lightness 20
-
-$color-background-base2:  #eee8d5; // L* Lightness 92
-$color-background-base3:  #fdf6e3; // L* Lightness 97
-
-// Content tones
-
-$color-content-base01:    #586e75; // L* Lightness 45
-$color-content-base00:    #657b83; // L* Lightness 50
-
-$color-content-base0:     #839496; // L* Lightness 60
-$color-content-base1:     #93a1a1; // L* Lightness 65
+$base-03:        #002b36; // L* 15
+$base-02:        #073642; // L* 20
+$base-01:        #586e75; // L* 45
+$base-00:        #657b83; // L* 50
+$base-0:         #839496; // L* 60
+$base-1:         #93a1a1; // L* 65
+$base-2:         #eee8d5; // L* 92
+$base-3:         #fdf6e3; // L* 97
 
 // Accent colors
 
-$color-accent-yellow:     #b58900; // Split comp
-$color-accent-orange:     #cb4b16; // Complement
-$color-accent-red:        #dc322f; // Triad
-$color-accent-magenta:    #d33682; // Tetrad
-$color-accent-violet:     #6c71c4; // Analogous
-$color-accent-blue:       #268bd2; // Monotone
-$color-accent-cyan:       #2aa198; // Analogous
-$color-accent-green:      #859900; // Tetrad
+$accent-yellow:  #b58900; // Split comp
+$accent-orange:  #cb4b16; // Complement
+$accent-red:     #dc322f; // Triad
+$accent-magenta: #d33682; // Tetrad
+$accent-violet:  #6c71c4; // Analogous
+$accent-blue:    #268bd2; // Monotone
+$accent-cyan:    #2aa198; // Analogous
+$accent-green:   #859900; // Tetrad
+
+$accents: (
+  'yellow':      $accent-yellow,
+  'orange':      $accent-orange,
+  'red':         $accent-red,
+  'magenta':     $accent-magenta,
+  'violet':      $accent-violet,
+  'blue':        $accent-blue,
+  'cyan':        $accent-cyan,
+  'green':       $accent-green
+);
 ```
 
 We then use this tokens to define two versions of the theme under the appropriately named classes, `.dark-themed` and `light-themed`, that can be applied to the root HTML element. The best part is that these CSS variables are inherited by every element in the entire application.
 
 ```scss
 /* styles/base/theme.scss */
-@import '~@/styles/tokens/colors';
+@use '~@/styles/tokens/colors';
+
+@mixin dark-theme {
+  #{--content-secondary}:      colors.$base-01;
+  #{--content}:                colors.$base-0;
+  #{--content-highlighted}:    colors.$base-1;
+  #{--content-prominent}:      colors.$base-2;
+
+  #{--background}:             colors.$base-03;
+  #{--background-highlighted}: colors.$base-02;
+  #{--background-selected}:    color.adjust(colors.$base-2, $alpha: -0.9);
+}
+
+@mixin light-theme {
+  #{--content-secondary}:      colors.$base-1;
+  #{--content}:                colors.$base-00;
+  #{--content-highlighted}:    colors.$base-01;
+  #{--content-prominent}:      colors.$base-02;
+
+  #{--background}:             colors.$base-3;
+  #{--background-highlighted}: colors.$base-2;
+  #{--background-selected}:    color.adjust(colors.$base-02, $alpha: -0.9);
+}
 
 @mixin theme {
-  &.dark-themed {
-    #{--content}:                $color-content-base0;
-    #{--content-highlighted}:    $color-content-base1;
-    #{--content-secondary}:      $color-content-base01;
-
-    #{--background}:             $color-background-base03;
-    #{--background-highlighted}: $color-background-base02;
-    #{--background-opposite}:    $color-background-base3;
-
-    #{--background-selected}:    rgba(255, 255, 255, 0.1);
+  @media (prefers-color-scheme: dark) {
+    @include dark-theme;
+  }
+  @media not all and (prefers-color-scheme: dark) {
+    @include light-theme;
   }
 
-  &.light-themed {
-    #{--content}:                $color-content-base00;
-    #{--content-highlighted}:    $color-content-base01;
-    #{--content-secondary}:      $color-content-base1;
+  &[theme="dark"] {
+    @include dark-theme;
+  }
 
-    #{--background}:             $color-background-base3;
-    #{--background-highlighted}: $color-background-base2;
-    #{--background-opposite}:    $color-background-base03;
-
-    #{--background-selected}:    rgba(0, 0, 0, 0.1);
+  &[theme="light"] {
+    @include light-theme;
   }
 }
 
 :root {
   @include theme;
+}
+
+body {
+  color: var(--content);
+  background-color: var(--background);
 }
 ```
 
@@ -172,7 +196,7 @@ Next we need a way for the user to change the theme and for the site to memorise
 
 See the [code for the `Themer` component](https://github.com/dhruvkb/portfolio/blob/master/src/app/components/themer/Themer.vue).
 
-Let me break that down for you. The `Themer` component contains two data variables, `themes`, listing all possible themes supported by the app, and `theme`, the currently active one, set to `null` by default.
+Let me break that down for you. The `Themer` component contains two data variables, `themes`, listing all possible themes supported by the app, and `theme`, the currently active one, set to `null` at mount time, but resolving to one of the possible themes immediately after.
 
 ```js
 // Themer.vue script
@@ -180,11 +204,19 @@ export default {
   // ...
   data () {
     return {
-      themes: [
-        'light',
-        'dark'
-      ],
-      theme: null
+      themes: {
+        system: {
+          themeColor: null // automatically maps to light or dark
+        },
+        light: {
+          themeColor: colors.colorBackgroundBase2
+        },
+        dark: {
+          themeColor: colors.colorBackgroundBase02
+        }
+      },
+      theme: null,
+      default: 'system'
     }
   }
 }
@@ -216,10 +248,10 @@ export default {
   watch: {
     theme (to, from) {
       if (to !== from) { // Breaks recursion
-        if (from) {
-          document.documentElement.classList.remove(`${from}-themed`)
-        }
-        document.documentElement.classList.add(`${to}-themed`)
+        document.documentElement.setAttribute('theme', this.theme)
+
+        // Set the new theme color
+        this.themeColorElement.content = this.themeColor
 
         // Persist theme to local storage
         localStorage.theme = to
@@ -229,30 +261,26 @@ export default {
 }
 ```
 
-Whenever the value of `to` from is different from that of `from`, we know a theme change has occurred so we change the class on the HTML element and subsequently write the new value of the theme to the local storage to preserve it for the future. After all, good software cares for and remembers the preferences of their users.
+Whenever the value of `to` from is different from that of `from`, we know a theme change has occurred so we change the attribute on the HTML element and subsequently write the new value of the theme to the local storage to preserve it for the future. After all, good software cares for and remembers the preferences of their users.
 
 Finally we need to add a button that allows the user to change the theme at will. The template for that will look a little something like this.
 
 ```html
 <!-- Themer.vue template -->
-<button @click="switchTheme">Change theme</button>
+<button @click="switchTheme('system')">System theme</button>
+<button @click="switchTheme('light')">Light theme</button>
+<button @click="switchTheme('dark')">Dark theme</button>
 ```
 
 We haven't defined the `switchTheme()` method yet so the next step would be doing exactly that.
 
 ```js
 // Themer.vue script
-export default Themer {
+export default {
   // ...
-  computed: {
-    otherTheme () {
-      let index = this.themes.indexOf(this.theme)
-      return this.themes[++index % this.themes.length]
-    }
-  },
   methods: {
-    switchTheme () {
-      this.theme = this.otherTheme
+    switchTheme (theme) {
+      this.theme = theme
     }
   }
 }
