@@ -2,7 +2,7 @@
 index: 2
 title: "Adding a blog to a static site"
 excerpt: "I decided to add a blog to my portfolio. Turns out adding one to a statically published site is somehow both easier and simultaneously more difficult than you would think."
-publicationDate: "2019-10-17"
+publicationDate: "2020-08-05"
 slug: blogging_on_a_static_site
 tags:
 - portfolio
