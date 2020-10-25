@@ -199,7 +199,7 @@ See the [code for the `Themer` component](https://github.com/dhruvkb/portfolio/b
 Let me break that down for you. The `Themer` component contains two data variables, `themes`, listing all possible themes supported by the app, and `theme`, the currently active one, set to `null` at mount time, but resolving to one of the possible themes immediately after.
 
 ```js
-// Themer.vue script
+// components/app/themer/Themer.vue script
 export default {
   // ...
   data () {
@@ -225,7 +225,7 @@ export default {
 We start with a person opening my portfolio on their device. By place the themer component in the navbar, we ensure it is loaded on every page and as soon as it is created it invokes the `created()` lifecycle function.
 
 ```js
-// Themer.vue script
+// components/app/themer/Themer.vue script
 export default {
   // ...
   created () {
@@ -242,7 +242,7 @@ export default {
 In the function we check if the local storage contains the key `'theme'`. If it does, that means the user has visited the site before and so we switch the user over to the last by setting the data variable `theme` to the value retrived from local storage. If it doesn't, we switch to the dark theme, which is the default as it is my favourite. Either way, the value of the variable `theme` changes and our watcher is triggered with the values of the old and new themes.
 
 ```js
-// Themer.vue script
+// components/app/themer/Themer.vue script
 export default {
   // ...
   watch: {
@@ -266,7 +266,7 @@ Whenever the value of `to` from is different from that of `from`, we know a them
 Finally we need to add a button that allows the user to change the theme at will. The template for that will look a little something like this.
 
 ```html
-<!-- Themer.vue template -->
+<!-- components/app/themer/Themer.vue template -->
 <button @click="switchTheme('system')">System theme</button>
 <button @click="switchTheme('light')">Light theme</button>
 <button @click="switchTheme('dark')">Dark theme</button>
@@ -275,7 +275,7 @@ Finally we need to add a button that allows the user to change the theme at will
 We haven't defined the `switchTheme()` method yet so the next step would be doing exactly that.
 
 ```js
-// Themer.vue script
+// components/app/themer/Themer.vue script
 export default {
   // ...
   methods: {
