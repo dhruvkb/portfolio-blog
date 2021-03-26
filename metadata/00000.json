@@ -1,0 +1,12 @@
+{
+  "index": 0,
+  "title": "Hello, World!",
+  "excerpt": "Hey there! You're not supposed to see this unless you're either going through the repo or fiddling with my API.",
+  "publicationDate": "2019-10-01",
+  "slug": "hello_world",
+  "tags": [
+    "dhruvkb",
+    "portfolio",
+    "secret"
+  ]
+}
